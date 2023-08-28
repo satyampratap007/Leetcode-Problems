@@ -116,7 +116,7 @@ class Solution
 
             // Break the loop by setting the next of the previous node to NULL
             prev->next = NULL;
-            return; // Loop is removed
+            // return; // Loop is removed
         }
     }
 }
