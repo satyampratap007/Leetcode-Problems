@@ -89,37 +89,33 @@ class Solution
 {
     public:
     //Function to remove a loop in the linked list.
-    void removeLoop(Node* head) {
-    if (!head || !head->next) {
-        return;
-    }
+    void removeLoop(Node* head)
+    {
+        if(!head || !head->next)
+            return;
 
-    Node* slow = head;
-    Node* fast = head;
-    Node* prev = NULL;
-
-    while (fast && fast->next) {
-        prev = slow;
-        slow = slow->next;
-        fast = fast->next->next;
-
-        if (slow == fast) {
-            // Loop detected. Move one pointer to the head of the list
-            slow = head;
-
-            // Move both pointers one step at a time until they meet again
-            while (slow != fast) {
-                prev = fast;
-                slow = slow->next;
-                fast = fast->next;
+        Node* slow = head;
+        Node* fast = head;
+        Node*prev = NULL;
+    
+        while(fast && fast->next)
+        {
+            prev = slow;    // tackle the case when the loop is at the first index only at this case this will store the last node of the ll
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+            {
+                slow = head;
+                while(slow != fast)
+                {
+                    prev = fast;
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                prev->next = NULL;
             }
-
-            // Break the loop by setting the next of the previous node to NULL
-            prev->next = NULL;
-            // return; // Loop is removed
         }
     }
-}
 };
 
 //{ Driver Code Starts.
