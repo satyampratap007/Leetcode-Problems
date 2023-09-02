@@ -164,7 +164,7 @@ public:
                         k -= level;
                         count++;
                     }
-                    // else    return count;
+                    else    return count;
                 }
                 if(temp->left)  q.push(temp->left);
                 if(temp->right) q.push(temp->right);
