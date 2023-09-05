@@ -113,8 +113,8 @@ struct Node{
     the flattened linked list. */
 Node* merge_list(Node *a, Node*b)
 {
-   Node* temp = new Node(0);
-   Node* res = temp;
+   Node* res = new Node(0);
+   Node* temp = res;
    while(a && b)
    {
        if(a->data < b->data)
