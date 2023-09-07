@@ -1,0 +1,44 @@
+Node* copyRandomList(Node* head) {
+        Node* temp = head;
+        Node* front = head;
+
+        // to create dummy nodes
+        while(temp)
+        {
+            front = temp->next; // that basically contains the refernce of next node  
+            Node* copy = new Node(temp->val);
+            temp->next = copy;
+            copy->next = front;
+
+            temp = front;
+        }
+
+        // Connect the random node
+
+        Node * itr = head;
+
+        while(itr)
+        {
+            if(itr->random != NULL)
+            {
+                itr->next->random = itr->random->next;
+            }
+            itr = itr->next->next;
+        }
+
+        // Connect all the next pointer in a proper way
+
+        Node* d_h = new Node(0);
+        Node* copy = d_h;
+        itr = head;
+        while(itr)
+        {
+            Node* front = itr->next->next;
+            copy->next = itr->next;  // deep node
+            copy = copy->next;
+            itr->next = front;
+            itr = itr->next;
+        }
+        return d_h->next;
+
+    }
