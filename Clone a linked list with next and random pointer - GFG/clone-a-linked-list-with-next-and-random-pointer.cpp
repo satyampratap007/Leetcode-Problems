@@ -21,31 +21,78 @@ struct Node {
 class Solution
 {
     public:
-    Node *copyList(Node *head)
-    {
+    // Node *copyList(Node *head)
+    // {
         // Brute Force
-        unordered_map <Node*,Node*> mp;
+    //     unordered_map <Node*,Node*> mp;
         
-        Node* temp = head; 
-        // Creating a deep copy and hashed it
+    //     Node* temp = head; 
+    //     // Creating a deep copy and hashed it
+    //     while(temp)
+    //     {
+    //         Node* new_node = new Node(temp->data);
+    //         mp[temp] = new_node;
+    //         temp = temp->next;
+    //     }
+        
+    //     // Now point similar to parent ll
+        
+    //     temp = head;
+    //     while(temp)
+    //     {
+    //         Node* node = mp[temp];
+    //         node->next = mp[temp->next];
+    //         node->arb = mp[temp->arb];
+    //         temp = temp->next;
+    //     }
+    //     return mp[head];
+    // }
+    
+    // Efficient Soln
+    
+     Node* copyList(Node* head) {
+        Node* temp = head;
+        Node* front = head;
+
+        // to create dummy nodes
         while(temp)
         {
-            Node* new_node = new Node(temp->data);
-            mp[temp] = new_node;
-            temp = temp->next;
+            front = temp->next; // that basically contains the refernce of next node  
+            Node* copy = new Node(temp->data);
+            temp->next = copy;
+            copy->next = front;
+
+            temp = front;
         }
-        
-        // Now point similar to parent ll
-        
-        temp = head;
-        while(temp)
+
+        // Connect the arb node
+
+        Node * itr = head;
+
+        while(itr)
         {
-            Node* node = mp[temp];
-            node->next = mp[temp->next];
-            node->arb = mp[temp->arb];
-            temp = temp->next;
+            if(itr->arb != NULL)
+            {
+                itr->next->arb = itr->arb->next;
+            }
+            itr = itr->next->next;
         }
-        return mp[head];
+
+        // Connect all the next pointer in a proper way
+
+        Node* d_h = new Node(0);
+        Node* copy = d_h;
+        itr = head;
+        while(itr)
+        {
+            Node* front = itr->next->next;
+            copy->next = itr->next;  // deep node
+            copy = copy->next;
+            itr->next = front;
+            itr = itr->next;
+        }
+        return d_h->next;
+
     }
 
 };
