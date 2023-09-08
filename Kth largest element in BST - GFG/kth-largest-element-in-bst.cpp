@@ -100,7 +100,7 @@ class Solution
     int temp=0;
     int kthLargest(Node *root, int &K)
     {
-        if(!root || K < 0) return 0;
+        if(!root || K < 0) return temp;
         kthLargest(root->right, K);
         K--;
         if(K == 0)    return temp = root->data;
