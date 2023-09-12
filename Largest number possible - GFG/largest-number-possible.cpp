@@ -21,7 +21,7 @@ public:
             }
             else
             {
-                ans += to_string(S);
+                ans +=(S + '0');
                 S = 0;
             }
         }
