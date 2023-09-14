@@ -17,42 +17,53 @@ public :
 */
 
 class Solution{
+    struct Node{
+        int val;
+        int mini;
+        Node* next;
+        
+        Node(int val, int mini, Node*next) : val(val),mini(mini),next(next) {}
+    };
+    Node* head;
+    
     public:
-        int ip[10000];
-        int op[10000];
-        int mini {-1};
-        int curr {-1};
-        int getMin(){
-            if(mini < 0)    return -1;
-            return op[mini];
-       }
-       
-       /*returns poped element from stack*/
-       int pop(){
-           if(curr < 0 || mini < 0)
+    Solution():head(NULL) {}
+    int getMin(){
+        if(head == NULL)
             return -1;
-            else{
-                int top = ip[curr];
-                curr--;
-                mini--;
-                return top;
-            }
-            
+        else{
+            return head->mini;
+        }
+        
+       }
+       int pop(){
+           if(head == NULL)
+                return -1;
+           else{
+               Node* temp = head;
+               int ans = temp->val;
+               delete(temp);
+               head = head->next;
+               return ans;
+           }
        }
        void push(int x){
-           if(curr >= 10000)
-                return;
-          
-           ip[++curr] = x;
-           if(mini < 0)
+           if(head != NULL)
            {
-               op[++mini] = x;        
+               head = new Node(x,min(x,head->mini), head);
            }
-           else{
-               int temp = op[mini];
-               op[++mini] = min(x, temp);
+           else
+           {
+               head = new Node(x, x, nullptr);
            }
        }
+        ~Solution() {
+            while (head) {
+                Node* temp = head;
+                head = head->next;
+                delete temp;
+            }
+        }
 };
 
 //{ Driver Code Starts.
