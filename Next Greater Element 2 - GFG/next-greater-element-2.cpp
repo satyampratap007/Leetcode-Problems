@@ -18,13 +18,16 @@ class Solution {
             {
                 st.pop();
             }
-            if(st.empty())
-            {
-                ans[ind] = -1;
-            }
-            else{
-                ans[ind] = st.top();
-            }
+          if(i < N){
+               if(st.empty())
+                {
+                    ans[ind] = -1;
+                }
+                else{
+                    ans[ind] = st.top();
+                }
+            //   cout << ans[ind] << "\n";
+          }
             
             st.push(arr[ind]);
         }
