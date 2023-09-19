@@ -1,0 +1,110 @@
+class Solution {
+public:
+// finding the area of Maximum area histogram
+
+/*Convert every row into single vector  and pass into the similar to maximum area histogram.
+just a single case when the ground become 0 in that case we will insert 0 in that  space in level 
+vector and we will not add with the element of the level vector and similarly we will pass each level and 
+check for the max area.*/
+
+   vector<int>nsr(vector <int> &arr, int n)
+  {
+      stack <int> st;
+      vector<int> nsr(n);
+      for(int i{n-1}; i >= 0; --i)
+      {
+          while(!st.empty() && arr[st.top()] >= arr[i])
+          {
+              st.pop();
+          }
+          if(st.empty())
+              nsr[i] = n;
+          else
+              nsr[i] = st.top();
+          st.push(i);
+      }
+      return nsr;
+  }
+
+  // Next smaller element to the left
+  // Considering -1 when stack is empty that means no smaller exist in left
+  vector<int>nsl(vector <int> &arr,int n)
+  {
+      stack <int> st;
+      vector<int> nsl(n);
+      for(int i{0}; i < n; ++i)
+      {
+          while(!st.empty() && arr[st.top()] >= arr[i])
+          {
+              st.pop();
+          }
+          if(st.empty())
+              nsl[i] = -1;
+          else
+              nsl[i] = st.top();
+          st.push(i);
+      }
+      return nsl;
+  }
+  int largestRectangleArea(vector<int>& heights) {
+      int n = heights.size();
+      vector <int> left(n);
+      vector <int> right(n);
+
+      right = nsr(heights,n);
+      left = nsl(heights,n);
+
+      int maxi = INT_MIN;
+
+      for(int i{0}; i < n; ++i)
+      {
+          int height = heights[i];
+          int width = (right[i] - left[i] - 1);
+      // Finding area
+          int area = height*width;
+          maxi = max(maxi, area);
+      }
+      return maxi;
+  }
+
+  
+
+  int maximalRectangle(vector<vector<char>>& matrix) {
+      int r = matrix.size();
+      int c = matrix[0].size();
+
+      vector <int> level(c);
+      for(int i{0}; i < c;++i)
+      {
+          level[i] = (matrix[0][i] - '0');
+      }
+      int maxi = largestRectangleArea(level);  // each col of matrix
+
+      // debug purpose
+      // for(auto &i : level)
+      //     cout << i; 
+      //     cout << "\n";
+
+      for(int i{1}; i < r; ++i)
+      {
+          for(int j{0}; j < c; ++j)
+          {
+              if(matrix[i][j] == '0')
+              {
+                  level[j] = 0;
+              }
+              else{
+                  level[j] = (matrix[i][j] - '0') + level[j];
+              }
+          }
+
+          // for(auto &i : level)
+          //     cout << i; 
+          // cout << "\n";
+          int area = largestRectangleArea(level);
+          maxi = max(maxi, area);
+      
+      }
+      return maxi;
+  }
+};
