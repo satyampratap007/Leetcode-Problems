@@ -73,7 +73,7 @@ class Solution
         {
             if(i != pot)
             {
-                if(M[i][pot] == 0 || M[pot][i] == 1)
+                if(M[i][pot] != 1 || M[pot][i] == 1)
                 {
                     return -1;
                 }
