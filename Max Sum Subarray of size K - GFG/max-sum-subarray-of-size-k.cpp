@@ -6,18 +6,19 @@ using namespace std;
 class Solution{   
 public:
     long maximumSumSubarray(int K, vector<int> &Arr , int N){
-        long maxi = INT_MIN,sum = Arr[0];
+        long maxi = INT_MIN,sum = 0;
         int i{0}, j{0};
         while(j < N)
         {
+            sum += Arr[j];
             if(j-i+1 < K){
                 j++;
-                sum += Arr[j];
             }
             else{
                 maxi = max(sum, maxi);
                 sum -= Arr[i];
                 i++;
+                j++;
             }
         }
         return maxi;
