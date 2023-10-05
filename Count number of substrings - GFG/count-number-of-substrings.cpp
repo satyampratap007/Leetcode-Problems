@@ -10,30 +10,41 @@ using namespace std;
 
 class Solution
 {
+    private:
+    long long at_most(string s, int k)
+    {
+        long long final_count{0};
+        int len = s.size();
+        int hash[26];
+        memset(hash,0,sizeof(hash));
+        int dis_count {0};
+        int i{0}, j{0};
+        
+        for(; j < len; ++j)
+        {
+            hash[s[j] - 'a']++;
+            if(hash[s[j] - 'a'] == 1)  // abhi abhi encounter hua and uska counter 1 hai then vo distinct hai
+            {
+                dis_count++;
+            }
+            while(dis_count > k)
+            {
+                hash[s[i] - 'a']--;
+                if(hash[s[i] - 'a'] == 0)
+                {
+                    dis_count--;
+                }
+                i++;
+            }
+            final_count += (j-i+1); // as we are calculating at most at each index
+        }
+        return final_count;
+    }
+    
   public:
-    long long int atMostK(string &s,int k){
-      vector<long long int>freq(26,0);
-      long long int start =0,count=0,distinct=0;
-      
-      for(int i=0; i<s.size();i++){
-          if(freq[s[i]-'a']==0)
-           distinct++;
-          freq[s[i]-'a']++;
-          
-          while(distinct>k){
-              freq[s[start]-'a']--;
-              if(freq[s[start]-'a']==0)
-              distinct--;
-              start++;
-          }
-          if(distinct<=k)
-          count = count+i-start+1;
-      }
-      return count;
-  }
     long long int substrCount (string s, int k) {
-    	//code here.
-    	return atMostK(s,k) -atMostK(s,k-1);
+        // We are finding at most to find the exact number of distinct element
+        return (at_most(s,k) - at_most(s, k-1));
     }
 };
 
