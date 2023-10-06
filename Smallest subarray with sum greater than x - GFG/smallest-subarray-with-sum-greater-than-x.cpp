@@ -9,6 +9,7 @@ class Solution{
 
     int smallestSubWithSum(int nums[], int len, int target)
     {
+        // Think like sliding window
         int curr_sum{0};
         int i{0}, j{0};
         int mini = INT_MAX;
