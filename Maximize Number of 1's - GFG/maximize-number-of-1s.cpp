@@ -9,22 +9,39 @@ class Solution{
 public:
     // m is maximum of number zeroes allowed to flip
     // n is size of array
+    // int findZeroes(int arr[], int n, int k) {
+        // Similar to at most k 0
+        // int i{0}, j{0};
+        // int maxi = 0;
+        
+        // while(j < n)
+        // {
+        //     if(arr[j] == 0 )
+        //         k--;
+        //     while(k < 0 && arr[i++] == 0)
+        //         k++;
+        //     if(k >= 0)
+        //         maxi = max(maxi, j-i+1);
+        //     j++;
+        // }
+        // return maxi;
+    // }  
+    
+    //  OR
+    
     int findZeroes(int arr[], int n, int k) {
         // Similar to at most k 0
         int i{0}, j{0};
-        int maxi = 0;
-        
+
         while(j < n)
         {
             if(arr[j] == 0 )
                 k--;
-            while(k < 0 && arr[i++] == 0)
+            if(k < 0 && arr[i++] == 0)
                 k++;
-            if(k >= 0)
-                maxi = max(maxi, j-i+1);
             j++;
         }
-        return maxi;
+        return j-i;
     }  
 };
 
