@@ -103,15 +103,15 @@ struct Node
 
 class Solution{
     public:
-    
+    bool check = true;
     int helper(Node* root){
         if(!root)   return 0;
         int l_h = helper(root->left);
-        if(l_h == -1) return -1;
+        // if(l_h == -1) return -1;
         int r_h = helper(root->right);
-        if(r_h == -1)   return -1;
-        if(abs(l_h - r_h) > 1)
-        {
+        // if(r_h == -1)   return -1;
+        if(abs(l_h - r_h) > 1){
+            check = false;
             return -1;
         }
         return max(l_h, r_h) + 1;
@@ -120,7 +120,8 @@ class Solution{
     //Function to check whether a binary tree is balanced or not.
     bool isBalanced(Node *root)
     {
-        return (helper(root) != -1);
+        helper(root);
+        return (check);
     }
 };
 
