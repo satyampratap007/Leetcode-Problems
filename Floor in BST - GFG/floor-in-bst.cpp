@@ -20,20 +20,17 @@ struct Node {
 // Function to search a node in BST.
 class Solution{
 
-    int ans = -1;
 public:
+    int ans = -1;
     int floor(Node* root, int x) {
         if(!root)
-        {
             return ans;
-        }
-        if(root->data <= x)
-        {
-            ans = root->data;
+            
+        if(root->data <= x){
+            ans = root->data;  // that could be my potential ans
             return floor(root->right,x);
         }
-        else
-        {
+        else{
             return floor(root->left,x);
         }
     }
