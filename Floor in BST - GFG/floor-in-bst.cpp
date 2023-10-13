@@ -21,18 +21,33 @@ struct Node {
 class Solution{
 
 public:
-    int ans = -1;
-    int floor(Node* root, int x) {
-        if(!root)
-            return ans;
+    // int ans = -1;
+    // int floor(Node* root, int x) {
+    //     if(!root)
+    //         return ans;
             
-        if(root->data <= x){
-            ans = root->data;  // that could be my potential ans
-            return floor(root->right,x);
+    //     if(root->data <= x){
+    //         ans = root->data;  // that could be my potential ans
+    //         return floor(root->right,x);
+    //     }
+    //     else{
+    //         return floor(root->left,x);
+    //     }
+    // }
+    int floor(Node* root, int x) {
+        int ans = -1;
+        while(root)
+        {
+            if(root->data <= x)
+            {
+                ans = root->data;
+                root = root->right;
+            }
+            else{
+                root = root->left;
+            }
         }
-        else{
-            return floor(root->left,x);
-        }
+        return ans;
     }
 };
 
