@@ -112,6 +112,7 @@ class Solution{
         // if(r_h == -1)   return -1;
         if(abs(l_h - r_h) > 1){
             check = false;
+            return -1;
             // return -1;
         }
         return max(l_h, r_h) + 1;
