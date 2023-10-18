@@ -87,24 +87,35 @@ Node* buildTree(string str)
 class Solution{
 public:    
     bool isCompleteBT(Node* root){
-         queue <Node*> q;
+         if (!root)
+            return true;
+
+        bool is_null_seen = false;
+        queue<Node*> q;
         q.push(root);
-        while(!q.empty()){
-            Node*node = q.front();
+
+        while (!q.empty()) {
+            Node* node = q.front();
             q.pop();
 
-            if(node){  // we will check if node is not null
+            if (node->left) {
+                if (is_null_seen) {
+                    return false;
+                }
                 q.push(node->left);
+            }
+            else{
+                is_null_seen = true;
+            }
+
+            if (node->right) {
+                if (is_null_seen) {
+                    return false;
+                }
                 q.push(node->right);
             }
-            // everything after that  node must be null to be a CBT
-            else {
-                while(!q.empty()){
-                    if(q.front()){
-                        return false;
-                    }
-                    q.pop();
-                }
+            else{
+                is_null_seen = true;
             }
         }
         return true;
