@@ -98,24 +98,37 @@ public:
             Node* node = q.front();
             q.pop();
 
-            if (node->left) {
-                if (is_null_seen) {
-                    return false;
-                }
-                q.push(node->left);
-            }
-            else{
-                is_null_seen = true;
-            }
+            // if (node->left) {
+            //     if (is_null_seen) {
+            //         return false;
+            //     }
+            //     q.push(node->left);
+            // }
+            // else{
+            //     is_null_seen = true;
+            // }
 
-            if (node->right) {
-                if (is_null_seen) {
-                    return false;
-                }
-                q.push(node->right);
+            // if (node->right) {
+            //     if (is_null_seen) {
+            //         return false;
+            //     }
+            //     q.push(node->right);
+            // }
+            // else{
+            //     is_null_seen = true;
+            // }
+            if(!node){
+                is_null_seen = true;
             }
             else{
-                is_null_seen = true;
+                if(!is_null_seen)
+                {   
+                    q.push(node->left);
+                    q.push(node->right);
+                }
+                else{
+                    return false;
+                }
             }
         }
         return true;
