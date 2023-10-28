@@ -6,25 +6,39 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-     vector<int> maxCombinations(int N, int K, vector<int> &A, vector<int> &B) {
-        vector<int> ans;
-        set<pair<int,int>> st;
-        priority_queue<vector<int>> p;
-        sort(A.begin(),A.end());
-        sort(B.begin(),B.end());
-        p.push({A[N-1]+B[N-1],N-1,N-1});
-        st.insert({N-1,N-1});
+    vector<int> maxCombinations(int N, int K, vector<int> &A, vector<int> &B) {
+        sort(A.begin(), A.end(), greater<int>());
+        sort(B.begin(), B.end(), greater<int>());
+        priority_queue<int,vector<int>, greater<int>> pq;
+        for(int i{0}; i < K; ++i)
+        {
+            for(int j{0}; j < K; ++j){
+                int curr = A[i] + B[j]; // storing the curr sum 
+                if(pq.size() < K)
+                {
+                    pq.push(curr);
+                }
+                else{
+                    if(pq.top() < curr){
+                        pq.pop();
+                        pq.push(curr);
+                    }
+                    else{ 
+                        break;
+                    }
+                }
+            }
+        }
+        vector <int> ans(K,0);
         while(K--){
-            vector<int> temp=p.top();
-            p.pop();
-            int sum=temp[0],i=temp[1],j=temp[2];
-            ans.push_back(sum);
-            if(j>=1 && st.count({i,j-1})==0 ){p.push({A[i]+B[j-1],i,j-1}); st.insert({i,j-1});}
-            if(i>=1 && st.count({i-1,j})==0 ){p.push({A[i-1]+B[j],i-1,j});st.insert({i-1,j});}
+            ans[K] = pq.top();
+            pq.pop();
         }
         return ans;
-    }
+         
+     }
 };
+
 
 //{ Driver Code Starts.
 
