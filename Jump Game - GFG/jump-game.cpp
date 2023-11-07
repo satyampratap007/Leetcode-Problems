@@ -16,12 +16,11 @@ class Solution {
         for(int i{1}; i < N; ++i){
             int curr_i = i;
             curr_i += A[i];
-            
-            if(i > maxi)
-                return false;
-            maxi = max(curr_i, maxi);
+            if(i > maxi)  // if curr_ind exceeds the maxi it means we can't reach that index then return false 
+                return false; 
+            maxi = max(curr_i, maxi);  // update maxi at each index
             if(maxi >= N-1)
-                return true;
+                return true;  // at any points if maxi reaches the end point or it might exceed for some test cases then we will return true
         }
         return true;
     }
