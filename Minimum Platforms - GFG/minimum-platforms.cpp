@@ -12,22 +12,13 @@ class Solution{
     //railway station such that no train waits.
     int findPlatform(int arr[], int dep[], int n)
     {
-        vector<pair<int,int>> vp;
-    	for(int i=0;i<n;i++){
-    	    vp.push_back({arr[i],dep[i]});
-    	}
-    	
-    	sort(vp.begin(),vp.end());
-
-    	priority_queue<int, vector<int> , greater<int>> pq;
-    	
-    	
-    	for(int i=0;i<n;i++){
-    	    pq.push(vp[i].second);
-    	   // cout << pq.top() << "*" << "\n";
-    	    if(pq.top()<vp[i].first) {pq.pop();}
-    	}
-    	return pq.size();
+        vector <int> vec(2359,0);
+        for(int i{0}; i < n; ++i){
+            for(int j = arr[i]; j <= dep[i]; ++j){
+                vec[j]++;
+            }
+        }
+        return *max_element(vec.begin(), vec.end());
     }
 };
 
