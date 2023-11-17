@@ -120,18 +120,18 @@ class Solution
             return;
         helper(root->left);
         if(!prev){
-            prev = root;
+            // prev = root;
             head = root;
         }   
         else{
             // node->prev = prev
             root->left = prev;
             prev->right = root;
-            prev = root;
+            // prev = root;
         }
+        prev = root;
         helper(root->right);
     }
-    
     Node * bToDLL(Node *root)
     {
         if(!root)   return NULL;
